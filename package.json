@@ -1,0 +1,43 @@
+{
+	"name": "@csstools/custom-units",
+	"description": "Use Custom Units in CSS",
+	"type": "module",
+	"version": "0.1.0",
+	"license": "CC0-1.0",
+	"main": "postcss-custom-units.js",
+	"types": "./postcss-custom-units.d.ts",
+	"exports": {
+		".": {
+			"import": "./postcss-custom-units.js",
+			"require": "./postcss-custom-units.cjs",
+			"types": "./postcss-custom-units.d.ts"
+		},
+		"./postcss-custom-units": {
+			"import": "./postcss-custom-units.js",
+			"require": "./postcss-custom-units.cjs",
+			"types": "./postcss-custom-units.d.ts"
+		},
+		"./postcss-custom-units.js": {
+			"import": "./postcss-custom-units.js",
+			"require": "./postcss-custom-units.cjs",
+			"types": "./postcss-custom-units.d.ts"
+		},
+		"./postcss-custom-units.d": {
+			"types": "./postcss-custom-units.d.ts"
+		},
+		"./postcss-custom-units.d.ts": {
+			"types": "./postcss-custom-units.d.ts"
+		}
+	},
+	"files": [
+		"postcss-custom-units.cjs",
+		"postcss-custom-units.d.ts",
+		"postcss-custom-units.js"
+	],
+	"devDependencies": {
+		"postcss": "^8.4.14"
+	},
+	"dependencies": {
+		"postcss-value-parser": "^4.2.0"
+	}
+}

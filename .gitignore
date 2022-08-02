@@ -1,0 +1,16 @@
+# build output
+package-lock.json
+yarn.lock
+
+# dependencies
+node_modules/
+
+# logs
+*.log*
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
