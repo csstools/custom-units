@@ -7,7 +7,7 @@ const PostCSSPlugin = () => {
 		Declaration (declaration) {
 			const declarationValue = declaration.value
 
-			if (!declarationValue.includes('var(--')) return
+			if (!declarationValue.includes('--')) return
 
 			const declarationAST = parseValue(declarationValue)
 
@@ -19,8 +19,6 @@ const PostCSSPlugin = () => {
 				if (!value) return
 
 				const unit = node.value.slice(value.length)
-
-				console.log([ value, unit ])
 
 				Object.assign(node, {
 					type: 'function',

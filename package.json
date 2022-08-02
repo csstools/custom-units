@@ -2,7 +2,7 @@
 	"name": "@csstools/custom-units",
 	"description": "Use Custom Units in CSS",
 	"type": "module",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"license": "CC0-1.0",
 	"main": "postcss-custom-units.js",
 	"types": "./postcss-custom-units.d.ts",

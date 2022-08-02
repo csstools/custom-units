@@ -20,8 +20,6 @@ const PostCSSPlugin = () => {
 
 				const unit = node.value.slice(value.length)
 
-				console.log([ value, unit ])
-
 				Object.assign(node, {
 					type: 'function',
 					value: 'max',
