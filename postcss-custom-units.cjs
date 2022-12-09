@@ -1,13 +1,15 @@
 const parseValue = require('postcss-value-parser')
 
 /** @type {import('postcss').PluginCreator} */
-const PostCSSPlugin = () => {
+const PostCSSPlugin = ({ units = [] } = {}) => {
+	const matchCustomNumber = getMatchCustomNumber(units);
+
 	return {
 		postcssPlugin: 'postcss-custom-units',
 		Declaration (declaration) {
 			const declarationValue = declaration.value
 
-			if (!declarationValue.includes('--')) return
+			if (!declarationValue.includes('--') && !units.some((unit) => declarationValue.includes(unit))) return
 
 			const declarationAST = parseValue(declarationValue)
 
@@ -18,7 +20,9 @@ const PostCSSPlugin = () => {
 
 				if (!value) return
 
-				const unit = node.value.slice(value.length)
+				let unit = node.value.slice(value.length)
+
+				if (!unit.startsWith('--')) unit = '--' + unit
 
 				Object.assign(node, {
 					type: 'function',
@@ -50,6 +54,11 @@ const PostCSSPlugin = () => {
 
 PostCSSPlugin.postcss = true
 
-const matchCustomNumber = /^[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?(?=--)/
+const getMatchCustomNumber = (units = []) => {
+	const endings = ['--', ...units]
+		.map(ending => `(?:${ending})`)
+
+	return new RegExp(`^[-+]?\\d*\.?\\d+(?:[eE][-+]?\\d+)?(?=${endings.join('|')})`);
+}
 
 module.exports = PostCSSPlugin

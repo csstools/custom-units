@@ -6,6 +6,9 @@
 	"license": "CC0-1.0",
 	"main": "postcss-custom-units.js",
 	"types": "./postcss-custom-units.d.ts",
+  	"scripts": {
+	  "test": "jest"
+	},
 	"exports": {
 		".": {
 			"import": "./postcss-custom-units.js",
@@ -35,6 +38,7 @@
 		"postcss-custom-units.js"
 	],
 	"devDependencies": {
+		"jest": "^29.3.1",
 		"postcss": "^8.4.14"
 	},
 	"dependencies": {
