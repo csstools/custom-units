@@ -7,41 +7,41 @@
   "main": "postcss-custom-units.js",
   "types": "./postcss-custom-units.d.ts",
   "scripts": {
-	"test": "jest"
+    "test": "jest"
   },
   "exports": {
-	".": {
-	  "import": "./postcss-custom-units.js",
-	  "require": "./postcss-custom-units.cjs",
-	  "types": "./postcss-custom-units.d.ts"
-	},
-	"./postcss-custom-units": {
-	  "import": "./postcss-custom-units.js",
-	  "require": "./postcss-custom-units.cjs",
-	  "types": "./postcss-custom-units.d.ts"
-	},
-	"./postcss-custom-units.js": {
-	  "import": "./postcss-custom-units.js",
-	  "require": "./postcss-custom-units.cjs",
-	  "types": "./postcss-custom-units.d.ts"
-	},
-	"./postcss-custom-units.d": {
-	  "types": "./postcss-custom-units.d.ts"
-	},
-	"./postcss-custom-units.d.ts": {
-	  "types": "./postcss-custom-units.d.ts"
-	}
+    ".": {
+      "import": "./postcss-custom-units.js",
+      "require": "./postcss-custom-units.cjs",
+      "types": "./postcss-custom-units.d.ts"
+    },
+    "./postcss-custom-units": {
+      "import": "./postcss-custom-units.js",
+      "require": "./postcss-custom-units.cjs",
+      "types": "./postcss-custom-units.d.ts"
+    },
+    "./postcss-custom-units.js": {
+      "import": "./postcss-custom-units.js",
+      "require": "./postcss-custom-units.cjs",
+      "types": "./postcss-custom-units.d.ts"
+    },
+    "./postcss-custom-units.d": {
+      "types": "./postcss-custom-units.d.ts"
+    },
+    "./postcss-custom-units.d.ts": {
+      "types": "./postcss-custom-units.d.ts"
+    }
   },
   "files": [
-	"postcss-custom-units.cjs",
-	"postcss-custom-units.d.ts",
-	"postcss-custom-units.js"
+    "postcss-custom-units.cjs",
+    "postcss-custom-units.d.ts",
+    "postcss-custom-units.js"
   ],
   "devDependencies": {
-	"jest": "^29.3.1",
-	"postcss": "^8.4.14"
+    "jest": "^29.3.1",
+    "postcss": "^8.4.14"
   },
   "dependencies": {
-	"postcss-value-parser": "^4.2.0"
+    "postcss-value-parser": "^4.2.0"
   }
 }
