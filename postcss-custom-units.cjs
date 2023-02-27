@@ -1,55 +1,62 @@
 const parseValue = require('postcss-value-parser')
 
 /** @type {import('postcss').PluginCreator} */
-const PostCSSPlugin = () => {
-	return {
-		postcssPlugin: 'postcss-custom-units',
-		Declaration (declaration) {
-			const declarationValue = declaration.value
+const PostCSSPlugin = () => ({
+	postcssPlugin: 'postcss-custom-units',
+	Declaration(declaration) {
+		// ignore any declarations whose values do not include a double-dashes
+		if (!declaration.value.includes('--')) return
 
-			if (!declarationValue.includes('--')) return
+		/** Declaration value with transformations applied. */
+		const transformedValue = parseValue(declaration.value).walk(node => {
+			// ignore any nodes that are not a word
+			if (node.type !== 'word') return
 
-			const declarationAST = parseValue(declarationValue)
+			/* Number extracted from the node proceeded by a custom property. */
+			const [ value ] = node.value.match(matchCustomNumber) || []
 
-			declarationAST.walk(node => {
-				if (node.type !== 'word') return
+			// ignore any words that did not produce a value
+			if (!value) return
 
-				const value = (node.value.match(matchCustomNumber) || [])[0]
+			/* Unit extracted from the remaining portion of the word. */
+			const unit = node.value.slice(value.length)
 
-				if (!value) return
-
-				const unit = node.value.slice(value.length)
-
-				Object.assign(node, {
-					type: 'function',
-					value: 'max',
-					nodes: [
-						{ type: 'word', value },
-						{ type: 'space', value: ' ' },
-						{ type: 'word', value: '*' },
-						{ type: 'space', value: ' ' },
-						{
-							type: 'function',
-							value: 'var',
-							nodes: [
-								{ type: 'word', value: unit }
-							]
-						}
-					]
-				})
+			// update the node to be a calc() of the custom unit in a var()
+			Object.assign(node, {
+				type: 'function',
+				value: 'calc',
+				nodes: [
+					{
+						type: 'function',
+						value: 'var',
+						nodes: [
+							{ type: 'word', value: unit }
+						]
+					}
+				],
 			})
 
-			const modifiedValue = declarationAST.toString()
-
-			if (declarationValue !== modifiedValue) {
-				declaration.value = modifiedValue
+			// when the value does not equal 1, use the value as a multiplier
+			if (Number(value) !== 1) {
+				node.nodes.unshift(
+					{ type: 'word', value },
+					{ type: 'space', value: ' ' },
+					{ type: 'word', value: '*' },
+					{ type: 'space', value: ' ' }
+				)
 			}
-		},
-	}
-}
+		}).toString()
+
+		// if the value has changed, update the declaration node
+		if (declaration.value !== transformedValue) {
+			declaration.value = transformedValue
+		}
+	},
+})
 
 PostCSSPlugin.postcss = true
 
+/** Regular expression used to match a CSS number before a custom property. */
 const matchCustomNumber = /^[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?(?=--)/
 
 module.exports = PostCSSPlugin

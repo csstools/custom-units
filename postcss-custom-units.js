@@ -16,13 +16,15 @@ const PostCSSPlugin = () => {
 
 				const value = (node.value.match(matchCustomNumber) || [])[0]
 
+				console.log({ value })
+
 				if (!value) return
 
 				const unit = node.value.slice(value.length)
 
 				Object.assign(node, {
 					type: 'function',
-					value: 'max',
+					value: 'calc',
 					nodes: [
 						{ type: 'word', value },
 						{ type: 'space', value: ' ' },
