@@ -41,7 +41,7 @@
 		"postcss-value-parser": "^4.2.0"
 	},
 	"devDependencies": {
-		"jest": "29.4.3",
-		"postcss": "8.4.21"
+		"jest": "^29.4.3",
+		"postcss": "^8.4.21"
 	}
 }
